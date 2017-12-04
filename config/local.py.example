@@ -1,0 +1,162 @@
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+
+from config.settings import *
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = []
+
+ADMINS = (('Admin', 'admin@dj_init.com'),)
+
+DEFAULT_FROM_EMAIL = 'support@dj_init.com'
+SERVER_EMAIL = "support@dj_init.com"
+ATOMIC_REQUESTS = True
+
+SITE_URL = ''
+
+# Internationalization
+# https://docs.djangoproject.com/en/1.11/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+# Database
+# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+
+############################# Database #############################
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'tmp/db/dev.sqlite3'),
+    },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'db_name',
+    #     'USER': 'db_user',
+    #     'PASSWORD': 'db_pass',
+    #     'HOST' : 'localhost',
+    #     'PORT' : '5432',
+    # }
+}
+
+# DATABASE_ROUTERS = ['dj_init.db_routers.DatabaseRouter',]
+
+############################# Apps #################################
+INSTALLED_APPS += [
+    'django_extensions',
+    'debug_toolbar',
+]
+
+########################## Middlewares #############################
+MIDDLEWARE += [
+    'debug_toolbar.middleware.DebugToolbarMiddleware', # for django debug toolbar
+]
+
+INTERNAL_IPS = ['127.0.0.1', ] # for django debug toolbar
+
+########################## DRF Settings #############################
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        # 'rest_framework.renderers.AdminRenderer',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework.filters.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ),
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    'DEFAULT_VERSION': 'v1',
+    'ALLOWED_VERSIONS': ('v1', 'v2'),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGINATE_BY': 10,                 # Default to 10
+    'PAGINATE_BY_PARAM': 'page_size',  # Allow client to override, using `?page_size=xxx`.
+    'MAX_PAGINATE_BY': 100             # Maximum limit allowed when using `?page_size=xxx`.
+}
+
+############################# Static ###############################
+STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+   os.path.join(BASE_DIR, "dj_init/static"),
+]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+############################# Logging ###############################
+PY_LOGGING = DEBUG  # True/False
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue'
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': [
+                'require_debug_false',
+                # 'require_debug_true'
+            ],
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True
+        }
+    }
+}
+
+####################### Celery Configurations #######################
+BROKER_URL = 'redis://localhost:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+# BROKER_URL = 'amqp://guest@localhost:5672//'
+CELERY_RESULT_BACKEND = 'djcelery.backends.database.DatabaseBackend'
+
+CELERYD_MAX_TASKS_PER_CHILD = 2
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_DEFAULT_QUEUE = 'dj_init'
+# CELERY_ALWAYS_EAGER = True    ## Call task without Celery.
+
+####################### PUSH Notification Configurations #######################
+FCM_DJANGO_SETTINGS = {
+    "FCM_SERVER_KEY": "[your api key]",
+    "FCM_SERVER_KEY_BU": "[your api key]",
+    "FCM_SERVER_KEY_INF": "[your api key]",
+     # true if you want to have only one active device per registered user at a time
+     # default: False
+    "ONE_DEVICE_PER_USER": False,
+     # devices to which notifications cannot be sent,
+     # are deleted upon receiving error response from FCM
+     # default: False
+    "DELETE_INACTIVE_DEVICES": False,
+}
