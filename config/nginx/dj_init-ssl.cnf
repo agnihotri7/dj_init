@@ -4,7 +4,7 @@
 ## Lines starting with one hash (#) are configuration parameters that can be uncommented.
 
 upstream dj_init {
-  server unix:/home/dj_init/dj_init/tmp/sockets/gunicorn.sock fail_timeout=0;
+  server unix:/home/dj_init.com/dj_init/dj_init/tmp/sockets/gunicorn.sock fail_timeout=0;
 }
 
 ## Normal HTTP host
@@ -68,16 +68,16 @@ server {
   ## Serve Static Assets directly through Nginx
 
   location /static/ {
-    # root /home/dj_init/dj_init/static;
-    alias /home/dj_init/dj_init/static/;
+    # root /home/dj_init.com/dj_init/dj_init/static;
+    alias /home/dj_init.com/dj_init/dj_init/static/;
     gzip_static on; # to serve pre-gzipped version
     expires max;
     add_header Cache-Control public;
   }
 
   location /media/ {
-    # root /home/dj_init/dj_init/media;
-    alias /home/dj_init/dj_init/media/;
+    # root /home/dj_init.com/dj_init/dj_init/media;
+    alias /home/dj_init.com/dj_init/dj_init/media/;
     gzip_static on; # to serve pre-gzipped version
     expires max;
     add_header Cache-Control public;
@@ -85,7 +85,7 @@ server {
 
   error_page 500 502 503 504 /500.html;
     location = /500.html {
-      # root /home/dj_init/dj_init/templates;
-      alias /home/dj_init/dj_init/templates/;
+      # root /home/dj_init.com/dj_init/dj_init/templates;
+      alias /home/dj_init.com/dj_init/dj_init/templates/;
     }
 }

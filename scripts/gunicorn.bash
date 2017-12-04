@@ -4,7 +4,7 @@
 NAME="dj_init"
 
 # Django project directory
-DJANGODIR=/home/dj_init/dj_init
+DJANGODIR=/home/dj_init.com/dj_init/dj_init
 
 # The user to run as
 USER=dj_init
@@ -22,16 +22,16 @@ DJANGO_SETTINGS_MODULE=config.local
 DJANGO_WSGI_MODULE=config.wsgi
 
 # Access logs
-ACCESS_LOG='/home/dj_init/dj_init/tmp/logs/access.log'
+ACCESS_LOG='/home/dj_init.com/dj_init/dj_init/tmp/logs/access.log'
 
 # Error logs
-ERROR_LOG='/home/dj_init/dj_init/tmp/logs/error.log'
+ERROR_LOG='/home/dj_init.com/dj_init/dj_init/tmp/logs/error.log'
 
 # Log Level
 LOG_LEVEL=debug # Options are debug, info, warning, error, critical
 
 # Socket File to bind to
-SOCKFILE=/home/dj_init/dj_init/tmp/sockets/gunicorn.sock
+SOCKFILE=/home/dj_init.com/dj_init/dj_init/tmp/sockets/gunicorn.sock
 
 ################################# END OF CONFIGURATIONS #################################
 
