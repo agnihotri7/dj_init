@@ -9,6 +9,8 @@ echo "what is your new project name?"
 read new_project_name
 
 cd $project_dir
+mkdir static
+mkdir media
 echo "cleaning .pyc files"
 find . -type f -name "*.pyc" | xargs rm -rf
 echo "renaming project name"
@@ -34,9 +36,13 @@ echo "creating virtual env and installing requirements.txt"
 virtualenv -p /usr/bin/python3.5 env
 source env/bin/activate
 pip install -r requirements.txt
+pip install gunicorn
 
 echo "applying migrations ..."
 python manage.py migrate
+
+echo "run collectstatic ..."
+python manage.py collectstatic
 
 echo "creating super user ..."
 python manage.py createsuperuser
