@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %} Home {% endblock %}</title>
+    <!-- <link rel="stylesheet" type="text/css" href=""> -->
+    {% block extra_head %}
+    {% endblock %}
+  </head>
+  {% block body %}
+    <body>
+      {% block navbar %}
+        <div>
+          <p>I am a navbar</p>
+        </div>
+      {% endblock %}
+
+      {% block content %}
+        <div>
+          <p>I am a body content</p>
+        </div>
+      {% endblock %}
+
+      {% block modal %}
+        <div>
+          <p>I am a modal</p>
+        </div>
+      {% endblock %}
+
+      {% block footer %}
+        <div>
+          <p>I am a footer</p>
+        </div>
+      {% endblock %}
+
+      {% block extra_foot %}
+      {% endblock %}
+    </body>
+  {% endblock %}
+</html>
