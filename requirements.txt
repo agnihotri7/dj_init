@@ -1,4 +1,7 @@
 Django==1.11
-djangorestframework==3.1.1
 django-extensions==1.9.7
 django-debug-toolbar==1.5
+django-filter==1.1.0
+djangorestframework==3.6.0
+djangorestframework-filters==0.10.2
+Markdown==2.1.0
